@@ -1,0 +1,52 @@
+[gd_scene load_steps=5 format=3 uid="uid://byxenckkt0h3a"]
+
+[ext_resource type="Script" path="res://texturemanager.gd" id="1_u7eco"]
+[ext_resource type="Texture2D" uid="uid://c8bhaw2uf6lyw" path="res://icon.svg" id="1_ycaqc"]
+[ext_resource type="Script" path="res://generators/ballpit.gd" id="3_o8prl"]
+
+[sub_resource type="Resource" id="Resource_t3io6"]
+script = ExtResource("3_o8prl")
+output_dimensions = Vector2i(750, 500)
+
+[node name="Node2D" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Generator" type="Node" parent="."]
+script = ExtResource("1_u7eco")
+generator = SubResource("Resource_t3io6")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="FieldDisplay" type="VBoxContainer" parent="CenterContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="TextureDisplay" type="TextureRect" parent="CenterContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 500)
+layout_mode = 2
+texture = ExtResource("1_ycaqc")
+expand_mode = 3
+
+[node name="generatebutton" type="Button" parent="CenterContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 50)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+text = "generate"
+
+[connection signal="pressed" from="CenterContainer/HBoxContainer/generatebutton" to="Generator" method="generate"]
